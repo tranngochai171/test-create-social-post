@@ -29,17 +29,14 @@ const Page: NextPageWithLayout<any> = (props: Props) => {
   } = props;
   return (
     <>
-      <div>123</div>
-      <div>123</div>
-      <div>123</div>
-      <div>123</div>
-      <div>123</div>
-      <div>123</div>
-      <div>123</div>
-      <div>123</div>
-      <div>123</div>
-      <div>123</div>
-      <div>123</div>
+      <div>title: ${title}</div>
+      <div>banner: ${banner}</div>
+      <div>date: ${date}</div>
+      <div>time: ${time}</div>
+      <div>venue: ${venue}</div>
+      <div>capacity: ${capacity}</div>
+      <div>price: ${price}</div>
+      <div>description: ${description}</div>
     </>
   );
 };
