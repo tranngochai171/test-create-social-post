@@ -18,7 +18,11 @@ const COMPACT_NUMBER_FORMATTER = new Intl.NumberFormat(locales, {
 
 const formatUtil = {
   formatCurrency: (num: number, currency?: string) => {
-    return defaultCurrencyFormatter(currency).format(num);
+    try {
+      return defaultCurrencyFormatter(currency).format(num);
+    } catch {
+      return '';
+    }
   },
   formatNumber: (num: number) => {
     return NUMBER_FORMATTER.format(num);
