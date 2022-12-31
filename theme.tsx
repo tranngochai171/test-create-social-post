@@ -25,10 +25,11 @@ const lightTheme: IObjectKeys = {
   colorWhite: '#FFFFFF',
   colorBlack: '#000000',
   colorLightGray: '#B4B4B4',
-  colorGray: '#646464',
+  colorGray: '#475467',
   colorSilver: '#C4C4C4',
   colorAlabaster: '#FAFAFA',
   colorPorcelain: '#F2F2F2',
+  colorDune: '#333333',
 
   backgroundColorGray: 'rgba(0, 0, 0, 0.6)',
   backgroundColorBlack: 'rgba(0, 0, 0, 1)',

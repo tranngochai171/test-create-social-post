@@ -105,7 +105,7 @@ type StyledBoxProps = {
   isError?: boolean;
 };
 
-const StyledBox = styled(Box, {
+export const StyledBoxBanner = styled(Box, {
   shouldForwardProp: prop => prop !== 'isError',
 })<StyledBoxProps>(({ isError }) => ({
   overflow: 'hidden',
@@ -138,7 +138,7 @@ const AddBanner = (props: any) => {
 
   return (
     <>
-      <StyledBox onClick={handleClickOpen} isError={Boolean(meta.error)}>
+      <StyledBoxBanner onClick={handleClickOpen} isError={Boolean(meta.error)}>
         <Stack
           direction='row'
           sx={{ height: '100%' }}
@@ -162,7 +162,7 @@ const AddBanner = (props: any) => {
             </>
           )}
         </Stack>
-      </StyledBox>
+      </StyledBoxBanner>
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby='customized-dialog-title'

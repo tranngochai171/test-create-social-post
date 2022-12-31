@@ -11,7 +11,7 @@ import PlaceIcon from '@mui/icons-material/Place';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
-import { Stack } from '@mui/material';
+import { Stack, Box } from '@mui/material';
 import moment from 'moment';
 import NumberFormat from '../../components/common/number-format';
 import commonConstants from '../../constants/common.constant';
@@ -84,98 +84,125 @@ const Page: NextPageWithLayout = () => {
     <Formik {...formikProps}>
       {({ handleSubmit }) => (
         <Form>
-          <Stack gap={1}>
-            <FormikControl
-              control={CONTROL_TYPE.INPUT}
-              name='title'
-              isTitle
-              width='max-content'
-            />
-            <FormikControl
-              fullWidth
-              control={CONTROL_TYPE.ADD_BANNER}
-              name='banner'
-            />
-            <Stack direction='row' gap={2}>
-              <FormikControl
-                fullWidth
-                control={CONTROL_TYPE.DATE}
-                name='date'
-                placeholder='Date'
-                icon={<CalendarTodayIcon />}
-              />
-              <FormikControl
-                fullWidth
-                control={CONTROL_TYPE.TIME}
-                name='time'
-                placeholder='Time'
-                icon={<AccessTimeFilledIcon />}
-              />
+          <Stack>
+            <Stack direction='row'>
+              <Stack sx={{ flex: '60%', zIndex: 10 }} gap={2}>
+                <FormikControl
+                  control={CONTROL_TYPE.INPUT}
+                  name='title'
+                  isTitle
+                  width='max-content'
+                  fullWidth
+                />
+                <Stack direction='row' gap={2}>
+                  <FormikControl
+                    fullWidth
+                    control={CONTROL_TYPE.DATE}
+                    name='date'
+                    placeholder='Date'
+                    icon={<CalendarTodayIcon />}
+                  />
+                  <FormikControl
+                    fullWidth
+                    control={CONTROL_TYPE.TIME}
+                    name='time'
+                    placeholder='Time'
+                    icon={<AccessTimeFilledIcon />}
+                  />
+                </Stack>
+                <FormikControl
+                  autoCapitalize='none'
+                  control={CONTROL_TYPE.INPUT}
+                  name='venue'
+                  placeholder='Venue'
+                  icon={<PlaceIcon />}
+                  width={516}
+                  maxLength={100}
+                />
+                <Stack direction='row' gap={2}>
+                  <FormikControl
+                    autoCapitalize='none'
+                    control={CONTROL_TYPE.INPUT}
+                    name='capacity'
+                    placeholder='Max capacity'
+                    icon={<GroupsIcon />}
+                    maxLength={4}
+                  />
+                  <FormikControl
+                    control={CONTROL_TYPE.INPUT}
+                    name='price'
+                    placeholder='Cost per person'
+                    icon={<MonetizationOnIcon />}
+                    inputComponent={NumberFormat as any}
+                    maxLength={8}
+                  />
+                </Stack>
+              </Stack>
+              <Stack
+                sx={{
+                  flex: '40%',
+                  position: 'relative',
+                  height: 441,
+                  zIndex: 1,
+                }}
+              >
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: 0,
+                    right: 0,
+                  }}
+                >
+                  <FormikControl
+                    fullWidth
+                    control={CONTROL_TYPE.ADD_BANNER}
+                    name='banner'
+                  />
+                </Box>
+              </Stack>
             </Stack>
-            <FormikControl
-              autoCapitalize='none'
-              control={CONTROL_TYPE.INPUT}
-              name='venue'
-              placeholder='Venue'
-              icon={<PlaceIcon />}
-              width={454}
-              maxLength={100}
-            />
-            <Stack direction='row' gap={2}>
-              <FormikControl
-                autoCapitalize='none'
-                control={CONTROL_TYPE.INPUT}
-                name='capacity'
-                placeholder='Max capacity'
-                icon={<GroupsIcon />}
-                maxLength={4}
-              />
-              <FormikControl
-                control={CONTROL_TYPE.INPUT}
-                name='price'
-                placeholder='Cost per person'
-                icon={<MonetizationOnIcon />}
-                inputComponent={NumberFormat as any}
-                maxLength={8}
-              />
+            <Stack direction='row' mb={10}>
+              <Stack sx={{ flex: '50%' }} gap={4}>
+                <FormikControl
+                  title='Description'
+                  control={CONTROL_TYPE.INPUT}
+                  name='description'
+                  placeholder='Description of your event..'
+                  multiline
+                  minRows={6}
+                  width='100%'
+                />
+                <SettingBox>
+                  <SettingText>Settings</SettingText>
+                  <FormikControl
+                    label='I want to approve attendees'
+                    control={CONTROL_TYPE.CHECKBOX}
+                    name='isManualApprove'
+                  />
+                  <FormikControl
+                    label='Privacy'
+                    control={CONTROL_TYPE.RADIO_GROUP}
+                    name='privacy'
+                    options={optionsPrivacy ?? []}
+                  />
+                  <FormikControl
+                    label='Tag your social'
+                    subLabel='Pick tags for our curation engine to work its magin'
+                    control={CONTROL_TYPE.MULTIPLE_SELECT}
+                    name='tags'
+                    originalOptions={commonConstants.TAGS ?? []}
+                  />
+                </SettingBox>
+                <StyledLoadingButton
+                  loading={isLoading}
+                  disabled={isLoading}
+                  onClick={() => handleSubmit()}
+                >
+                  CREATE SOCIAL
+                </StyledLoadingButton>
+              </Stack>
+              <Stack sx={{ flex: '50%' }}></Stack>
             </Stack>
-            <FormikControl
-              title='Description'
-              control={CONTROL_TYPE.INPUT}
-              name='description'
-              placeholder='Description of your event..'
-              multiline
-              minRows={6}
-              width={642}
-            />
-            <SettingBox>
-              <SettingText>Settings</SettingText>
-              <FormikControl
-                label='I want to approve attendees'
-                control={CONTROL_TYPE.CHECKBOX}
-                name='isManualApprove'
-              />
-              <FormikControl
-                label='Privacy'
-                control={CONTROL_TYPE.RADIO_GROUP}
-                name='privacy'
-                options={optionsPrivacy ?? []}
-              />
-              <FormikControl
-                label='Tag your social'
-                subLabel='Pick tags for our curation engine to work its magin'
-                control={CONTROL_TYPE.MULTIPLE_SELECT}
-                name='tags'
-                originalOptions={commonConstants.TAGS ?? []}
-              />
-            </SettingBox>
-            <StyledLoadingButton
-              loading={isLoading}
-              disabled={isLoading}
-              onClick={() => handleSubmit()}
-            >
-              CREATE SOCIAL
-            </StyledLoadingButton>
           </Stack>
         </Form>
       )}

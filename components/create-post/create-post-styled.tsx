@@ -2,7 +2,6 @@ import { Stack, styled, Typography } from '@mui/material';
 import { themes } from '../../theme';
 
 export const SettingBox = styled(Stack)({
-  width: 640,
   padding: 32,
   backgroundColor: themes.light.backgroundColorWhite,
   borderRadius: 20,
