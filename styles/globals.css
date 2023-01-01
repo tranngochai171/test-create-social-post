@@ -1,3 +1,18 @@
+@font-face{
+  font-family: 'Neue Haas Grotesk Display Pro';
+  src: url(../public/font/NeueHaasDisplayBold.ttf); 
+  font-weight: 700;
+}
+@font-face{
+  font-family: 'Neue Haas Grotesk Display Pro';
+  src: url(../public/font/NeueHaasDisplayMedium.ttf);
+  font-weight: 500;
+}
+@font-face{
+  font-family: 'Neue Haas Grotesk Display Pro';
+  src: url(../public/font/NeueHaasDisplayLight.ttf);
+  font-weight: 400;
+}
 :root {
   --max-width: 1100px;
   --border-radius: 12px;

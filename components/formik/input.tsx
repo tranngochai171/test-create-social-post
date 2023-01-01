@@ -71,6 +71,7 @@ const Input = (props: any) => {
     <Field name={name}>
       {({ field, form, meta }: FieldProps) => {
         if (isTitle) {
+          console.log(field);
           return (
             <Stack width={width} gap={1}>
               <TextareaAutosize
@@ -78,13 +79,16 @@ const Input = (props: any) => {
                 maxRows={5}
                 style={{
                   resize: 'none',
-                  backgroundColor: themes.light.colorRoyalHeath,
+                  background: themes.light.colorRoyalHeath,
                   color: themes.light.colorWhite,
                   minHeight: '60px',
                   padding: '0 12px',
                   borderRadius: '4px',
                   fontSize: '48px',
                   fontWeight: 600,
+                  minWidth: '300px',
+                  width: `${field.value.length * 25 <= 516 ? field.value.length * 25 : 516}px`,
+                  overflow: 'hidden',
                   fontFamily: themes.light.fontNeueHaasGroteskDisplayPro,
                   borderBottom: Boolean(meta.error)
                     ? `2px solid ${themes.light.colorElectricRed}`

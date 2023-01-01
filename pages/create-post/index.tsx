@@ -3,22 +3,17 @@ import Layout from '../../components/common/layouts/layout';
 import { NextPageWithLayout } from '../_app';
 import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
-import FormikControl, {
-  CONTROL_TYPE,
-} from '../../components/formik/formik-control';
+import FormikControl, { CONTROL_TYPE } from '../../components/formik/formik-control';
 import GroupsIcon from '@mui/icons-material/Groups';
 import PlaceIcon from '@mui/icons-material/Place';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
-import { Stack, Box } from '@mui/material';
+import { Stack, Box, Grid } from '@mui/material';
 import moment from 'moment';
 import NumberFormat from '../../components/common/number-format';
 import commonConstants from '../../constants/common.constant';
-import {
-  SettingBox,
-  SettingText,
-} from '../../components/create-post/create-post-styled';
+import { SettingBox, SettingText } from '../../components/create-post/create-post-styled';
 import { PostValuesType } from '../../types/post.type';
 import { useCreateNewPost } from '../../hooks/usePost';
 import { StyledLoadingButton } from '../../components/common/styled/common-styled';
@@ -39,10 +34,7 @@ const validationSchema = Yup.object({
   time: Yup.string().required('Required'),
   isManualApprove: Yup.boolean().optional(),
   privacy: Yup.string().required('Required'),
-  tags: Yup.array()
-    .of(Yup.string())
-    .min(1, 'At least 1 tag should be selected')
-    .required('Required'),
+  tags: Yup.array().of(Yup.string()).min(1, 'At least 1 tag should be selected').required('Required'),
 });
 
 const initialValues: PostValuesType = {
@@ -67,99 +59,79 @@ const optionsPrivacy = commonConstants.LIST_PRIVACY.map((item: string) => ({
 const Page: NextPageWithLayout = () => {
   const { mutate, isLoading } = useCreateNewPost();
   const onSubmit = (values: PostValuesType) => {
-    const date = moment(values.date).format(
-      commonConstants.DATE_FORMATTER.DATE,
-    );
-    const time = moment(values.time).format(
-      commonConstants.DATE_FORMATTER.TIME,
-    );
+    const date = moment(values.date).format(commonConstants.DATE_FORMATTER.DATE);
+    const time = moment(values.time).format(commonConstants.DATE_FORMATTER.TIME);
     const startAt = moment(
       `${date} ${time}`,
-      `${commonConstants.DATE_FORMATTER.DATE} ${commonConstants.DATE_FORMATTER.TIME}`,
+      `${commonConstants.DATE_FORMATTER.DATE} ${commonConstants.DATE_FORMATTER.TIME}`
     ).format();
     mutate({ ...values, startAt });
   };
   const formikProps = { initialValues, validationSchema, onSubmit };
   return (
     <Formik {...formikProps}>
-      {({ handleSubmit }) => (
+      {({ handleSubmit, isValid }) => (
         <Form>
           <Stack>
             <Stack direction='row'>
-              <Stack sx={{ flex: '60%', zIndex: 10 }} gap={2}>
-                <FormikControl
-                  control={CONTROL_TYPE.INPUT}
-                  name='title'
-                  isTitle
-                  width='max-content'
-                  fullWidth
-                />
-                <Stack direction='row' gap={2}>
-                  <FormikControl
-                    fullWidth
-                    control={CONTROL_TYPE.DATE}
-                    name='date'
-                    placeholder='Date'
-                    icon={<CalendarTodayIcon />}
-                  />
-                  <FormikControl
-                    fullWidth
-                    control={CONTROL_TYPE.TIME}
-                    name='time'
-                    placeholder='Time'
-                    icon={<AccessTimeFilledIcon />}
-                  />
-                </Stack>
-                <FormikControl
-                  autoCapitalize='none'
-                  control={CONTROL_TYPE.INPUT}
-                  name='venue'
-                  placeholder='Venue'
-                  icon={<PlaceIcon />}
-                  width={516}
-                  maxLength={100}
-                />
-                <Stack direction='row' gap={2}>
-                  <FormikControl
-                    autoCapitalize='none'
-                    control={CONTROL_TYPE.INPUT}
-                    name='capacity'
-                    placeholder='Max capacity'
-                    icon={<GroupsIcon />}
-                    maxLength={4}
-                  />
-                  <FormikControl
-                    control={CONTROL_TYPE.INPUT}
-                    name='price'
-                    placeholder='Cost per person'
-                    icon={<MonetizationOnIcon />}
-                    inputComponent={NumberFormat as any}
-                    maxLength={8}
-                  />
-                </Stack>
-              </Stack>
-              <Stack
-                sx={{
-                  flex: '40%',
-                  position: 'relative',
-                  height: 441,
-                  zIndex: 1,
-                }}
-              >
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    top: 0,
-                    right: 0,
-                  }}
-                >
-                  <FormikControl
-                    fullWidth
-                    control={CONTROL_TYPE.ADD_BANNER}
-                    name='banner'
-                  />
-                </Box>
-              </Stack>
+              <Grid container>
+                <Grid item lg={5} md={6} sm={12}>
+                  <Stack sx={{ zIndex: 10 }} gap={2}>
+                    <FormikControl control={CONTROL_TYPE.INPUT} name='title' isTitle width='max-content' fullWidth />
+                    <Stack direction='row' gap={2}>
+                      <FormikControl
+                        fullWidth
+                        control={CONTROL_TYPE.DATE}
+                        name='date'
+                        placeholder='Date'
+                        icon={<CalendarTodayIcon />}
+                      />
+                      <FormikControl
+                        fullWidth
+                        control={CONTROL_TYPE.TIME}
+                        name='time'
+                        placeholder='Time'
+                        icon={<AccessTimeFilledIcon />}
+                      />
+                    </Stack>
+                    <Stack direction='column'>
+                      <Stack direction='row' gap={2}>
+                      <FormikControl
+                        autoCapitalize='none'
+                        control={CONTROL_TYPE.INPUT}
+                        name='venue'
+                        placeholder='Venue'
+                        icon={<PlaceIcon />}
+                        maxLength={100}
+                        width={516}
+                      />
+                      </Stack>
+                      <Stack direction='row' gap={2}>
+                        <FormikControl
+                          autoCapitalize='none'
+                          control={CONTROL_TYPE.INPUT}
+                          name='capacity'
+                          placeholder='Max capacity'
+                          icon={<GroupsIcon />}
+                          maxLength={4}
+                        />
+                        <FormikControl
+                          control={CONTROL_TYPE.INPUT}
+                          name='price'
+                          placeholder='Cost per person'
+                          icon={<MonetizationOnIcon />}
+                          inputComponent={NumberFormat as any}
+                          maxLength={8}
+                        />
+                      </Stack>
+                    </Stack>
+                  </Stack>
+                </Grid>
+                <Grid item lg={7}  md={6} sm={12}>
+                  <FormikControl fullWidth control={CONTROL_TYPE.ADD_BANNER} name='banner' />
+                </Grid>
+              </Grid>
+
             </Stack>
             <Stack direction='row' mb={10}>
               <Stack sx={{ flex: '50%' }} gap={4}>
@@ -195,7 +167,7 @@ const Page: NextPageWithLayout = () => {
                 </SettingBox>
                 <StyledLoadingButton
                   loading={isLoading}
-                  disabled={isLoading}
+                  disabled={isLoading || !isValid}
                   onClick={() => handleSubmit()}
                 >
                   CREATE SOCIAL

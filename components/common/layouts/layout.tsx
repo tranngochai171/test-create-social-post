@@ -6,7 +6,7 @@ type LayoutProps = {
 };
 
 const StyledBox = styled(Box)({
-  marginTop: 100,
+  marginTop: 150,
 });
 
 const Layout = ({ children }: LayoutProps) => {

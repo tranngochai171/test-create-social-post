@@ -8,6 +8,7 @@ import {
   Text16Weight500,
 } from '../../components/common/styled/typography-styed';
 import { themes } from '../../theme';
+import { Close } from '@mui/icons-material';
 
 const StyledStackWrap = styled(Stack)({
   flexDirection: 'row',
@@ -23,6 +24,9 @@ const StyledChip = styled(Chip)({
     '&:hover': {
       color: themes.light.colorBoysenberry,
     },
+  },
+  '.MuiChip-deleteIcon': {
+    fontSize: '14px',
   },
 });
 
@@ -72,6 +76,7 @@ const MultipleSelect = (props: any) => {
             variant='outlined'
             key={item}
             label={item}
+            deleteIcon={<Close />}
             onDelete={() => handleUnselect(item)}
           />
         ))}

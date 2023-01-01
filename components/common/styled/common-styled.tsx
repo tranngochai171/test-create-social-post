@@ -21,6 +21,7 @@ export const StyledSecondCommonButton = styled(Button)({
 export const StyledLoadingButton = styled(LoadingButton)({
   backgroundColor: themes.light.colorGorseYellow,
   color: themes.light.colorRoyalHeath,
+  height: 48,
   '&:hover': {
     backgroundColor: themes.light.colorGorseYellow,
   },

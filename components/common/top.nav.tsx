@@ -12,6 +12,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { themes } from '../../theme';
 import ImageWithFallback from './image-with-fallback';
 import Link from 'next/link';
+import { useEffect } from 'react';
 
 type PageType = {
   text: string;
@@ -31,8 +32,24 @@ const pages: PageType[] = [
 ];
 
 function TopNav() {
+  useEffect(() => {
+    window.addEventListener('scroll', headerColorChange);
+    return () => window.removeEventListener('scroll', headerColorChange);
+  });
+  const headerColorChange = () => {
+    const windowsScrollTop = window.pageYOffset;
+    const navbar = document.querySelector('#navbar');
+    if (windowsScrollTop > 50) {
+      // @ts-ignore
+      navbar.style.backgroundColor = '#fff';
+    } else {
+      // @ts-ignore
+      navbar.style.backgroundColor = 'transparent';
+    }
+  };
+
   return (
-    <AppBar sx={{ backgroundColor: 'transparent' }} elevation={0}>
+    <AppBar id='navbar' sx={{ backgroundColor: 'transparent' }} elevation={0}>
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
           <StyledStack

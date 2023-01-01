@@ -32,7 +32,7 @@ const StyledInput = styled(InputBase, {
 }));
 
 const Date = (props: any) => {
-  const { name, label, width = 200, icon, ...rest } = props;
+  const { name, label, width = 260, icon, ...rest } = props;
 
   return (
     <Field name={name}>
